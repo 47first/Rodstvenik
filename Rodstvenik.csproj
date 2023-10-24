@@ -126,6 +126,7 @@
       <DependentUpon>Users.edmx</DependentUpon>
       <LastGenOutput>Users.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Users.sql" />
     <Content Include="Users.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Users.edmx</DependentUpon>
