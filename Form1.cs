@@ -39,6 +39,7 @@ namespace Rodstvenik
             }
 
             UpdateRoleLabel();
+            UpdateGrid();
         }
 
         private void UpdateRoleLabel()
@@ -55,6 +56,34 @@ namespace Rodstvenik
             }
 
             roleLabel.Text = string.Format(_roleFormat, roleName);
+        }
+
+        private void UpdateGrid()
+        {
+            if (IsAuthorized == false)
+            {
+                dataGridView1.DataSource = null;
+                return;
+            }
+
+            using (var dbContext = new UsersEntities())
+            {
+                dataGridView1.DataSource = dbContext.Users.ToArray();
+                dataGridView1.Columns.Remove("Roles");
+                dataGridView1.Columns.Remove("Id_role");
+
+                var roleColumn = new DataGridViewTextBoxColumn();
+                roleColumn.HeaderText = "Роль";
+                var colIndex = dataGridView1.Columns.Add(roleColumn);
+
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                {
+                    var userId = (int)dataGridView1[0, i].Value;
+                    var roleId = dbContext.Users.First(user => user.ID == userId).ID_role;
+
+                    dataGridView1[colIndex, i].Value = dbContext.Roles.First(role => role.ID == roleId).Роль;
+                }
+            }
         }
     }
 }

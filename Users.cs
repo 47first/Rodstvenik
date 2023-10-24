@@ -21,7 +21,6 @@ namespace Rodstvenik
         public string Mail { get; set; }
         public System.DateTime Дата_регистрации { get; set; }
         public Nullable<int> ID_role { get; set; }
-    
         public virtual Roles Roles { get; set; }
     }
 }
